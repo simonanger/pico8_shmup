@@ -112,7 +112,7 @@ function _draw()
  spr(boom,boomx,boomy)
  
  if muzzle>0 then
-  circfill(shipx+3,shipy-1,muzzle,7)
+  circfill(shipx+3,shipy-2,muzzle,7)
  end
  
 end
