@@ -36,7 +36,7 @@ function _init()
  	add(starx,flr(rnd(128)))
  	add(stary,flr(rnd(128)))
  	add(starcol,flr(rnd(16+1)))
- 	add(starspd,rnd(2)+0.5)
+ 	add(starspd,rnd(1.5)+0.5)
  end
  
 end
