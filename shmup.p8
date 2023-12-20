@@ -299,8 +299,8 @@ end
 
 function draw_level()
  cls(0)
- print("level 1",50,40,12)
  starfield()
+ print("level 1",50,40,8)
 end
 
 function draw_over()
