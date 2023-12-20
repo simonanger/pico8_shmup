@@ -167,7 +167,17 @@ end
 -->8
 function starfield()
  for i=1,#starx do
-  pset(starx[i],stary[i],starcol[i])
+  local scol=7
+  
+  if starspd[i]<1 then
+   scol=1
+  end
+  
+  if starspd[i]>1.5 then
+   scol=13
+  end
+  
+  pset(starx[i],stary[i],scol)
  end
 end
 
