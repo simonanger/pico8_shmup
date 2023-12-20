@@ -8,6 +8,15 @@ function _init()
  mode="start"
  blinkt=1
  
+ starx={}
+ stary={}
+ starspd={}
+ for i=1,100 do
+ 	add(starx,flr(rnd(128)))
+ 	add(stary,flr(rnd(128)))
+ 	add(starspd,rnd(1.5)+0.5)
+ end
+ 
 end
 
 function _update()
@@ -19,6 +28,8 @@ function _update()
   update_start()
  elseif mode=="over" then
   update_over()
+ elseif mode=="level" then
+  update_level()
  end
 end
 
@@ -29,6 +40,8 @@ function _draw()
   draw_start()
  elseif mode=="over" then
   draw_over()
+ elseif mode=="level" then
+  draw_level()
  end
 end
 
@@ -36,7 +49,7 @@ function startgane()
  mode="game"
  
  shipx=64
- shipy=64
+ shipy=80
  
  shipsx=0
  shipsy=0
@@ -58,7 +71,7 @@ function startgane()
  
  lives=4
  bombs=4
- 
+ --[[
  starx={}
  stary={}
  starspd={}
@@ -67,7 +80,7 @@ function startgane()
  	add(stary,flr(rnd(128)))
  	add(starspd,rnd(1.5)+0.5)
  end
- 
+ ]]--
 end
 -->8
 -- tools
@@ -103,12 +116,19 @@ function animatestars()
 end
 
 function blink()
- local banim={5,5,6,6,7,7,6,6,5,5}
+ local banim={5,5,5,5,5,5,5,5,5,5,5,6,6,7,7,6,6,5,5}
  
 	if blinkt>#banim then
 	 blinkt=1
 	end
  return banim[blinkt]
+end
+
+function wait(_wait)
+repeat
+_wait-=1
+flip()
+until _wait<0
 end
 -->8
 -- update
@@ -203,8 +223,13 @@ end
 
 function update_start()
  if btnp(4) or btnp(5) then
-  startgane()
+  mode="level"
  end
+end
+
+function update_level()
+  wait(30)
+  startgane()
 end
 
 function update_over()
@@ -253,16 +278,22 @@ function draw_game()
 end
 
 function draw_start()
- cls(1)
+ cls(0)
  print("space blaster",35,40,12)
  print("press any key to start",22,80,blink())
 
 end
 
+function draw_level()
+ cls(0)
+ print("level 1",50,40,12)
+ starfield()
+end
+
 function draw_over()
  cls(2)
  print("game over",45,40,3)
- print("press any key to continue",18,80,7)
+ print("press any key to continue",18,80,blink())
 
 end
 __gfx__
