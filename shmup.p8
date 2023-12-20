@@ -168,12 +168,14 @@ end
 function starfield()
  for i=1,#starx do
   local scol=6
+  local lx=starx[i]
+  local ly=stary[i]
   
-  if starspd[i]<1.5 then
+  if starspd[i]>1.7 then
+  	line(lx,ly,lx,ly-6,scol)
+  elseif starspd[i]<1.5 then
    scol=13
-  end
-  
-  if starspd[i]<1 then
+  elseif starspd[i]<1 then
    scol=1
   end
   
