@@ -4,6 +4,37 @@ __lua__
 function _init()
  --this will clear the screen
  cls(0)
+ 
+ mode="start"
+ blinkt=1
+ 
+end
+
+function _update()
+ blinkt+=1
+
+ if mode=="game" then
+  update_game()
+ elseif mode=="start" then
+  update_start()
+ elseif mode=="over" then
+  update_over()
+ end
+end
+
+function _draw()
+ if mode=="game" then
+  draw_game()
+ elseif mode=="start" then
+  draw_start()
+ elseif mode=="over" then
+  draw_over()
+ end
+end
+
+function startgane()
+ mode="game"
+ 
  shipx=64
  shipy=64
  
@@ -30,18 +61,59 @@ function _init()
  
  starx={}
  stary={}
- starcol={}
  starspd={}
  for i=1,100 do
  	add(starx,flr(rnd(128)))
  	add(stary,flr(rnd(128)))
- 	add(starcol,flr(rnd(16+1)))
  	add(starspd,rnd(1.5)+0.5)
  end
  
 end
+-->8
+-- tools
 
-function _update()
+function starfield()
+ for i=1,#starx do
+  local scol=6
+  local lx=starx[i]
+  local ly=stary[i]
+  
+  if starspd[i]>1.7 then
+  	line(lx,ly,lx,ly-6,scol)
+  elseif starspd[i]<1.5 then
+   scol=13
+  elseif starspd[i]<1 then
+   scol=1
+  end
+  
+  
+  pset(starx[i],stary[i],scol)
+ end
+end
+
+function animatestars()
+ for i=1,#stary do
+  local sy=stary[i]
+  sy=sy+starspd[i]
+  if sy>128 then
+   sy=sy-128
+  end
+  stary[i]=sy
+ end
+end
+
+function blink()
+ local banim={5,5,6,6,7,7,6,6,5,5}
+ 
+	if blinkt>#banim then
+	 blinkt=1
+	end
+ return banim[blinkt]
+end
+-->8
+-- update
+
+function update_game()
  --controls
  shipsx=0
  shipsy=0
@@ -69,6 +141,7 @@ function _update()
   boom=17
   muzzle=7
   bombs=bombs-1
+  mode="over"
  end
  if btnp(5) then
   bulx=shipx
@@ -128,7 +201,21 @@ function _update()
  
 end
 
-function _draw()
+function update_start()
+ if btnp(4) or btnp(5) then
+  startgane()
+ end
+end
+
+function update_over()
+ if btnp(4) or btnp(5) then
+  mode="start"
+ end
+end
+-->8
+-- draw
+
+function draw_game()
  cls(0)
  starfield()
  spr(shipspr,shipx,shipy)
@@ -164,35 +251,19 @@ function _draw()
  end
  
 end
--->8
-function starfield()
- for i=1,#starx do
-  local scol=6
-  local lx=starx[i]
-  local ly=stary[i]
-  
-  if starspd[i]>1.7 then
-  	line(lx,ly,lx,ly-6,scol)
-  elseif starspd[i]<1.5 then
-   scol=13
-  elseif starspd[i]<1 then
-   scol=1
-  end
-  
-  
-  pset(starx[i],stary[i],scol)
- end
+
+function draw_start()
+ cls(1)
+ print("space blaster",35,40,12)
+ print("press any key to start",22,80,blink())
+
 end
 
-function animatestars()
- for i=1,#stary do
-  local sy=stary[i]
-  sy=sy+starspd[i]
-  if sy>128 then
-   sy=sy-128
-  end
-  stary[i]=sy
- end
+function draw_over()
+ cls(2)
+ print("game over",45,40,3)
+ print("press any key to continue",18,80,7)
+
 end
 __gfx__
 00000000000550000005500000055000000000000000000000000000000000000000000000000000088008800880088000000000599999950099990000000000
