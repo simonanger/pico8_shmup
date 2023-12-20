@@ -24,8 +24,8 @@ function _init()
  muzzle=0
  
  score=10000
- lives=3
- bombs=3
+ lives=4
+ bombs=4
 end
 
 function _update()
@@ -49,12 +49,13 @@ function _update()
  if btn(3) then
   shipsy=2
  end
- if btnp(4) then
+ if btnp(4) and bombs>0 then
   boomx=shipx
   boomy=shipy-3
   sfx(1)
   boom=17
   muzzle=7
+  bombs=bombs-1
  end
  if btnp(5) then
   bulx=shipx
@@ -116,6 +117,7 @@ end
 
 function _draw()
  cls(0)
+ starfield()
  spr(shipspr,shipx,shipy)
  spr(flamespr,shipx,shipy+5)
  
@@ -148,16 +150,10 @@ function _draw()
   end
  end
  
- --[[
- 
- loop i if   heart
- 1    1 3>1  yes
- 2    2 3>2  yes
- 3    3 3>3  no
- 4    4 4>4  no
- 
- ]]--
- 
+end
+-->8
+function starfield()
+ pset(10,10,7)
 end
 __gfx__
 00000000000550000005500000055000000000000000000000000000000000000000000000000000088008800880088000000000599999950099990000000000
