@@ -118,7 +118,7 @@ function _update()
  end
  
  if shipy>120 then
-  shipy=0
+  shipy=120
  end
  if shipy<0 then
   shipy=120
