@@ -279,7 +279,7 @@ end
 
 function draw_start()
  cls(0)
- 
+ starfield()
  -- draw space
  spcspr={65,66,67,68,69}
  for i=1,#spcspr do
