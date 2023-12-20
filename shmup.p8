@@ -24,8 +24,19 @@ function _init()
  muzzle=0
  
  score=10000
+ 
  lives=4
  bombs=4
+ 
+ starx={}
+ stary={}
+ starcol={}
+ for i=1,100 do
+ 	add(starx,flr(rnd(128)))
+ 	add(stary,flr(rnd(128)))
+ 	add(starcol,flr(rnd(16+1)))
+ end
+ 
 end
 
 function _update()
@@ -153,7 +164,9 @@ function _draw()
 end
 -->8
 function starfield()
- pset(10,10,7)
+ for i=1,#starx do
+  pset(starx[i],stary[i],starcol[i])
+ end
 end
 __gfx__
 00000000000550000005500000055000000000000000000000000000000000000000000000000000088008800880088000000000599999950099990000000000
