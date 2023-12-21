@@ -161,7 +161,9 @@ function update_game()
   boom=17
   muzzle=7
   bombs=bombs-1
-  mode="over"
+  if bombs==0 then
+   mode="over"
+  end
  end
  if btnp(5) then
   bulx=shipx
@@ -283,13 +285,13 @@ function draw_start()
  -- draw space
  spcspr={65,66,67,68,69}
  for i=1,#spcspr do
-  spr(spcspr[i],7+i*8,40)
+  spr(spcspr[i],3+i*8,40)
  end
  
  -- draw blaster
  spcspr={81,82,67,65,83,69,84}
  for i=1,#spcspr do
-  spr(spcspr[i],57+i*8,40)
+  spr(spcspr[i],54+i*8,40)
  end
  print("press any key to start",22,80,blink())
  
