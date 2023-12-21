@@ -91,7 +91,7 @@ function starfield()
   local lx=starx[i]
   local ly=stary[i]
   
-  if starspd[i]>1.7 then
+  if starspd[i]>1.7 and mode=="game" then
   	line(lx,ly,lx,ly-6,scol)
   elseif starspd[i]<1.5 then
    scol=13
