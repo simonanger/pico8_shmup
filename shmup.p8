@@ -8,14 +8,6 @@ function _init()
  mode="start"
  blinkt=1
  
- starx={}
- stary={}
- starspd={}
- for i=1,100 do
- 	add(starx,flr(rnd(128)))
- 	add(stary,flr(rnd(128)))
- 	add(starspd,rnd(1.5)+0.5)
- end
  music(0)
  
  stars={}
