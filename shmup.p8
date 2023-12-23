@@ -62,8 +62,6 @@ function startgane()
  shipspr=2
  flamespr=5
  
- bulx=-10
- buly=-10
  bulspr=32
  
  boom=18
@@ -76,6 +74,8 @@ function startgane()
  
  lives=4
  bombs=4
+ 
+ bulls={}
 end
 -->8
 -- tools
@@ -162,8 +162,16 @@ function update_game()
   end
  end
  if btnp(5) then
-  bulx=shipx
-  buly=shipy-3
+  local newbul={}
+  newbul.x=shipx
+  newbul.y=shipy-3
+  
+ --[[ local newbul={
+   x=shipx,
+   y=shipy-3
+  } ]]--
+  add(bulls,newbul)
+  
   sfx(0)
   muzzle=6
  end
@@ -172,8 +180,13 @@ function update_game()
  shipx=shipx+shipsx
  shipy=shipy+shipsy
  
- --move the bullet
- buly=buly-4
+ --move the bullets
+ for i=1,#bulls do
+  local mybul=bulls[i]
+  mybul.y=mybul.y-4
+ end
+ 
+ 
  boomy=boomy-4
  
  --animate flame
@@ -244,7 +257,11 @@ function draw_game()
  spr(shipspr,shipx,shipy)
  spr(flamespr,shipx,shipy+5)
  
- spr(bulspr,bulx,buly)
+ for i=1,#bulls do
+  local mybul=bulls[i]
+  spr(bulspr,mybul.x,mybul.y)
+ end
+ 
  spr(boom,boomx,boomy)
  
  if muzzle>0 then
