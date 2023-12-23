@@ -181,11 +181,14 @@ function update_game()
  shipy=shipy+shipsy
  
  --move the bullets
- for i=1,#bulls do
+ for i=#bulls,1,-1 do
   local mybul=bulls[i]
   mybul.y=mybul.y-4
+  
+  if mybul.y<-8 then
+   del(bulls,mybul)
+  end
  end
- 
  
  boomy=boomy-4
  
