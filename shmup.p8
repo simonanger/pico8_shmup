@@ -18,6 +18,17 @@ function _init()
  end
  music(0)
  
+ stars={}
+
+ for i=1,100 do
+  local newstar={}
+  newstar.x=flr(rnd(128))
+  newstar.y=flr(rnd(128))
+  newstar.spd=rnd(1.5)+0.5
+  add(stars,newstar)
+ end
+ 
+ 
 end
 
 function _update()
@@ -88,11 +99,13 @@ end
 -- tools
 
 function starfield()
- for i=1,#starx do
+ --[[
+ for i=1,#stars do
   local scol=6
   local lx=starx[i]
   local ly=stary[i]
   
+ 
   if starspd[i]>1.7 and mode=="game" then
   	line(lx,ly,lx,ly-6,scol)
   elseif starspd[i]<1.5 then
@@ -103,10 +116,29 @@ function starfield()
   
   
   pset(starx[i],stary[i],scol)
+  end
  end
+ ]]--
+ 
+ for i=1,#stars do
+  local mystar=stars[i]
+  local scol=6
+   
+   if mystar.spd>1.7 and mode=="game" then
+  	 line(mystar.x,mystar.y,mystar.x,mystar.y-6,scol)
+   elseif mystar.spd<1.5 then
+    scol=13
+   elseif mystar.spd<1 then
+    scol=1
+  end
+  
+  pset(mystar.x,mystar.y,scol)
+  end
+ 
 end
 
 function animatestars()
+ --[[
  for i=1,#stary do
   local sy=stary[i]
   sy=sy+starspd[i]
@@ -115,6 +147,16 @@ function animatestars()
   end
   stary[i]=sy
  end
+ ]]--
+ 
+ for i=1,#stars do
+  local mystar=stars[i]
+  mystar.y=mystar.y+mystar.spd
+  if mystar.y>128 then
+   mystar.y=mystar.y-128
+  end
+ end
+ 
 end
 
 function blink()
