@@ -65,8 +65,6 @@ function startgane()
  bulspr=32
  
  boom=18
- boomx=-10
- boomy=-10
  
  muzzle=0
  
@@ -76,6 +74,7 @@ function startgane()
  bombs=4
  
  bulls={}
+ bomba={}
 end
 -->8
 -- tools
@@ -151,8 +150,11 @@ function update_game()
   shipsy=2
  end
  if btnp(4) and bombs>0 then
-  boomx=shipx
-  boomy=shipy-3
+  local newbom={}
+  newbom.x=shipx
+  newbom.y=shipy-3
+  add(bomba,newbom)
+  
   sfx(1)
   boom=17
   muzzle=7
@@ -190,7 +192,15 @@ function update_game()
   end
  end
  
- boomy=boomy-4
+ --move the bombs
+ for i=#bomba,1,-1 do
+  local mybom=bomba[i]
+  mybom.y=mybom.y-4
+  
+  if mybom.y<-8 then
+   del(bomba,mybom)
+  end
+ end
  
  --animate flame
  flamespr=flamespr+1
@@ -260,12 +270,25 @@ function draw_game()
  spr(shipspr,shipx,shipy)
  spr(flamespr,shipx,shipy+5)
  
+ -- display bullets
  for i=1,#bulls do
   local mybul=bulls[i]
   spr(bulspr,mybul.x,mybul.y)
  end
  
- spr(boom,boomx,boomy)
+ for i=1,#bomba do
+  local mybom=bomba[i]
+  spr(boom,mybom.x,mybom.y)
+ end
+ 
+ --display bombs
+ for i=1,4 do
+  if bombs>=i then
+ 	 spr(27,(i*9-8)+90,1)
+  else
+   spr(26,(i*9-8)+90,1)
+  end
+ end
  
  if muzzle>0 then
   circfill(shipx+3,shipy-2,muzzle,7)
@@ -282,15 +305,6 @@ function draw_game()
    spr(10,i*9-8,1)
   end
   
- end
- 
- --display bombs
- for i=1,4 do
-  if bombs>=i then
- 	 spr(27,(i*9-8)+90,1)
-  else
-   spr(26,(i*9-8)+90,1)
-  end
  end
  
 end
