@@ -164,23 +164,26 @@ function update_game()
   end
  end
  if btnp(5) then
-  local newbul={}
-  newbul.x=shipx
-  newbul.y=shipy-3
-
-  add(bulls,newbul)
+ 
+  for i=1,3 do
+   local newbul={}
+   if i==1 then
+    newbul.x=shipx
+    newbul.y=shipy-3
+    add(bulls,newbul)
+   end
+   if i==2 then
+    newbul.x=shipx-20
+    newbul.y=shipy-3
+    add(bulls,newbul)
+   end
+   if i==3 then
+    newbul.x=shipx+20
+    newbul.y=shipy-3
+    add(bulls,newbul)
+   end
   
-  local newbul={}
-  newbul.x=shipx-20
-  newbul.y=shipy-3
-  
-  add(bulls,newbul)
-  
-  local newbul={}
-  newbul.x=shipx+20
-  newbul.y=shipy-3
-  
-  add(bulls,newbul)
+  end
   
   sfx(0)
   muzzle=6
