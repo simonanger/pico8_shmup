@@ -54,13 +54,13 @@ end
 function startgane()
  mode="game"
  
- shipx=64
- shipy=80
+ ship={}
+ ship.x=64
+ ship.y=80
+ ship.sx=0
+ ship.sy=0
+ ship.spr=2
  
- shipsx=0
- shipsy=0
- 
- shipspr=2
  flamespr=5
  
  bulspr=32
@@ -144,29 +144,29 @@ end
 
 function update_game()
  --controls
- shipsx=0
- shipsy=0
- shipspr=2
+ ship.sx=0
+ ship.sy=0
+ ship.spr=2
  
  if btn(0) then
-  shipsx=-2
-  shipspr=1
+  ship.sx=-2
+  ship.spr=1
  end
  if btn(1) then
-  shipsx=2
-  shipspr=3
+  ship.sx=2
+  ship.spr=3
  end
  if btn(2) then
-  shipsy=-2
-  shipspr=4
+  ship.sy=-2
+  ship.spr=4
  end
  if btn(3) then
-  shipsy=2
+  ship.sy=2
  end
  if btnp(4) and bombs>0 then
   local newbom={}
-  newbom.x=shipx
-  newbom.y=shipy-3
+  newbom.x=ship.x
+  newbom.y=ship.y-3
   add(bomba,newbom)
   
   sfx(1)
@@ -190,8 +190,8 @@ function update_game()
  end
  
  --moving the ship
- shipx=shipx+shipsx
- shipy=shipy+shipsy
+ ship.x+=ship.sx
+ ship.y+=ship.sy
  
  --move the bullets
  for i=#bulls,1,-1 do
@@ -251,18 +251,18 @@ function update_game()
   boom=17
  end
  --checking if we hit the edge
- if shipx>120 then
-  shipx=0
+ if ship.x>120 then
+  ship.x=0
  end
- if shipx<0 then
-  shipx=120
+ if ship.x<0 then
+  ship.x=120
  end
  
- if shipy>120 then
-  shipy=120
+ if ship.y>120 then
+  ship.y=120
  end
- if shipy<0 then
-  shipy=120
+ if ship.y<0 then
+  ship.y=120
  end
  
  animatestars()
@@ -291,8 +291,8 @@ end
 function draw_game()
  cls(0)
  starfield()
- spr(shipspr,shipx,shipy)
- spr(flamespr,shipx,shipy+5)
+ drawmyspr(ship)
+ spr(flamespr,ship.x,ship.y+5)
  
  --drawing enemies
  for i=1,#enemies do
@@ -304,7 +304,6 @@ function draw_game()
  for i=1,#bulls do
   local mybul=bulls[i]
   drawmyspr(mybul)
-  --spr(bulspr,mybul.x,mybul.y)
  end
  
  for i=1,#bomba do
@@ -322,7 +321,8 @@ function draw_game()
  end
  
  if muzzle>0 then
-  circfill(shipx+3,shipy-2,muzzle,7)
+  circfill(ship.x+3,ship.y-2,
+  muzzle,7)
  end
  
  print("score: "..score,40,1,12)
@@ -396,8 +396,8 @@ end
 
 function snglbul()
  local newbul={}
-  newbul.x=shipx
-  newbul.y=shipy-3
+  newbul.x=ship.x
+  newbul.y=ship.y-3
   newbul.spd=4
   newbul.diag=0
   newbul.spr=bulspr
@@ -408,8 +408,8 @@ function mltbul()
 
  for i=1,3 do
    local newbul={}
-    newbul.x=shipx
-    newbul.y=shipy-3
+    newbul.x=ship.x
+    newbul.y=ship.y-3
     newbul.spd=4
     newbul.diag=0
     newbul.spr=bulspr
@@ -417,7 +417,7 @@ function mltbul()
     add(bulls,newbul)
    end
    if i==2 then
-    --newbul.x=shipx-20
+    --newbul.x=-20
     newbul.diag=-2
     add(bulls,newbul)
    end
