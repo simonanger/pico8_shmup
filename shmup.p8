@@ -167,11 +167,19 @@ function update_game()
   local newbul={}
   newbul.x=shipx
   newbul.y=shipy-3
+
+  add(bulls,newbul)
   
- --[[ local newbul={
-   x=shipx,
-   y=shipy-3
-  } ]]--
+  local newbul={}
+  newbul.x=shipx-20
+  newbul.y=shipy-3
+  
+  add(bulls,newbul)
+  
+  local newbul={}
+  newbul.x=shipx+20
+  newbul.y=shipy-3
+  
   add(bulls,newbul)
   
   sfx(0)
