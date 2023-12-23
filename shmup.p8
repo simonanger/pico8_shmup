@@ -7,6 +7,7 @@ function _init()
  
  mode="start"
  blinkt=1
+ sngshot=true
  
  music(0)
  
@@ -164,24 +165,12 @@ function update_game()
   end
  end
  if btnp(5) then
- -- 3 bullets
-  for i=1,3 do
-   local newbul={}
-    newbul.x=shipx
-    newbul.y=shipy-3
-    newbul.spd=4
-   if i==1 then
-    add(bulls,newbul)
-   end
-   if i==2 then
-    newbul.x=shipx-20
-    add(bulls,newbul)
-   end
-   if i==3 then
-    newbul.x=shipx+20
-    add(bulls,newbul)
-   end
+ 
+  if sngshot==true then
+   snglbul()
+  else
   
+   mltbul()
   end
   
   sfx(0)
@@ -368,6 +357,37 @@ function draw_over()
  ovrspr={100,85,69,84}
  for i=1,#ovrspr do
   spr(ovrspr[i],60+i*8,40)
+ end
+end
+-->8
+-- bullets
+
+function snglbul()
+ local newbul={}
+  newbul.x=shipx
+  newbul.y=shipy-3
+  newbul.spd=4
+  add(bulls,newbul)
+end
+
+function mltbul()
+
+ for i=1,3 do
+   local newbul={}
+    newbul.x=shipx
+    newbul.y=shipy-3
+    newbul.spd=4
+   if i==1 then
+    add(bulls,newbul)
+   end
+   if i==2 then
+    newbul.x=shipx-20
+    add(bulls,newbul)
+   end
+   if i==3 then
+    newbul.x=shipx+20
+    add(bulls,newbul)
+   end
  end
 end
 __gfx__
