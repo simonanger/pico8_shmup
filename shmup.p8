@@ -169,6 +169,7 @@ function update_game()
    local newbul={}
     newbul.x=shipx
     newbul.y=shipy-3
+    newbul.spd=4
    if i==1 then
     add(bulls,newbul)
    end
@@ -194,7 +195,7 @@ function update_game()
  --move the bullets
  for i=#bulls,1,-1 do
   local mybul=bulls[i]
-  mybul.y=mybul.y-4
+  mybul.y=mybul.y-mybul.spd
   
   if mybul.y<-8 then
    del(bulls,mybul)
