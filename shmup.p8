@@ -76,41 +76,11 @@ function startgane()
  
  lives=4
  bombs=4
- --[[
- starx={}
- stary={}
- starspd={}
- for i=1,100 do
- 	add(starx,flr(rnd(128)))
- 	add(stary,flr(rnd(128)))
- 	add(starspd,rnd(1.5)+0.5)
- end
- ]]--
 end
 -->8
 -- tools
 
 function starfield()
- --[[
- for i=1,#stars do
-  local scol=6
-  local lx=starx[i]
-  local ly=stary[i]
-  
- 
-  if starspd[i]>1.7 and mode=="game" then
-  	line(lx,ly,lx,ly-6,scol)
-  elseif starspd[i]<1.5 then
-   scol=13
-  elseif starspd[i]<1 then
-   scol=1
-  end
-  
-  
-  pset(starx[i],stary[i],scol)
-  end
- end
- ]]--
  
  for i=1,#stars do
   local mystar=stars[i]
@@ -130,16 +100,6 @@ function starfield()
 end
 
 function animatestars()
- --[[
- for i=1,#stary do
-  local sy=stary[i]
-  sy=sy+starspd[i]
-  if sy>128 then
-   sy=sy-128
-  end
-  stary[i]=sy
- end
- ]]--
  
  for i=1,#stars do
   local mystar=stars[i]
