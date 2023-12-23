@@ -135,6 +135,10 @@ _wait-=1
 flip()
 until _wait<0
 end
+
+function drawmyspr(myspr)
+ spr(myspr.spr,myspr.x,myspr.y)
+end
 -->8
 -- update
 
@@ -200,13 +204,15 @@ function update_game()
  end
  
  --moving enemies
- for i=1,#enemies do
-  local myen=enemies[i]
+ for myen in all(enemies) do
   myen.y+=1
-  
   myen.spr+=0.4
   if myen.spr>=25 then
    myen.spr=21
+  end
+  
+  if myen.y>128 then
+   del(enemies,myen)
   end
  end
  
@@ -291,13 +297,14 @@ function draw_game()
  --drawing enemies
  for i=1,#enemies do
   local myen=enemies[i]
-  spr(myen.spr,myen.x,myen.y)
+  drawmyspr(myen)
  end
  
  -- display bullets
  for i=1,#bulls do
   local mybul=bulls[i]
-  spr(bulspr,mybul.x,mybul.y)
+  drawmyspr(mybul)
+  --spr(bulspr,mybul.x,mybul.y)
  end
  
  for i=1,#bomba do
@@ -393,6 +400,7 @@ function snglbul()
   newbul.y=shipy-3
   newbul.spd=4
   newbul.diag=0
+  newbul.spr=bulspr
   add(bulls,newbul)
 end
 
@@ -404,6 +412,7 @@ function mltbul()
     newbul.y=shipy-3
     newbul.spd=4
     newbul.diag=0
+    newbul.spr=bulspr
    if i==1 then
     add(bulls,newbul)
    end
