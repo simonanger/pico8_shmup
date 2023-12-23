@@ -295,14 +295,12 @@ function draw_game()
  spr(flamespr,ship.x,ship.y+5)
  
  --drawing enemies
- for i=1,#enemies do
-  local myen=enemies[i]
+ for myen in all(enemies) do
   drawmyspr(myen)
  end
  
  -- display bullets
- for i=1,#bulls do
-  local mybul=bulls[i]
+ for mybul in all(bulls) do
   drawmyspr(mybul)
  end
  
