@@ -204,7 +204,7 @@ function update_game()
   local myen=enemies[i]
   myen.y+=1
   
-  myen.spr+=0.2
+  myen.spr+=0.4
   if myen.spr>=25 then
    myen.spr=21
   end
