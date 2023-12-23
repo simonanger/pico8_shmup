@@ -164,22 +164,20 @@ function update_game()
   end
  end
  if btnp(5) then
- 
+ -- 3 bullets
   for i=1,3 do
    local newbul={}
-   if i==1 then
     newbul.x=shipx
     newbul.y=shipy-3
+   if i==1 then
     add(bulls,newbul)
    end
    if i==2 then
     newbul.x=shipx-20
-    newbul.y=shipy-3
     add(bulls,newbul)
    end
    if i==3 then
     newbul.x=shipx+20
-    newbul.y=shipy-3
     add(bulls,newbul)
    end
   
