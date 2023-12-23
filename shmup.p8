@@ -7,7 +7,7 @@ function _init()
  
  mode="start"
  blinkt=1
- sngshot=true
+ sngshot=false
  
  music(0)
  
@@ -169,7 +169,6 @@ function update_game()
   if sngshot==true then
    snglbul()
   else
-  
    mltbul()
   end
   
@@ -185,7 +184,7 @@ function update_game()
  for i=#bulls,1,-1 do
   local mybul=bulls[i]
   mybul.y=mybul.y-mybul.spd
-  
+  mybul.x=mybul.x+mybul.diag
   if mybul.y<-8 then
    del(bulls,mybul)
   end
@@ -367,6 +366,7 @@ function snglbul()
   newbul.x=shipx
   newbul.y=shipy-3
   newbul.spd=4
+  newbul.diag=0
   add(bulls,newbul)
 end
 
@@ -377,15 +377,18 @@ function mltbul()
     newbul.x=shipx
     newbul.y=shipy-3
     newbul.spd=4
+    newbul.diag=0
    if i==1 then
     add(bulls,newbul)
    end
    if i==2 then
-    newbul.x=shipx-20
+    --newbul.x=shipx-20
+    newbul.diag=-2
     add(bulls,newbul)
    end
    if i==3 then
-    newbul.x=shipx+20
+    --newbul.x=shipx+20
+    newbul.diag=2
     add(bulls,newbul)
    end
  end
