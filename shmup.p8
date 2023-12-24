@@ -55,7 +55,7 @@ function startgane()
  mode="game"
  
  ship={}
- ship.x=64
+ ship.x=60
  ship.y=80
  ship.sx=0
  ship.sy=0
@@ -134,6 +134,26 @@ end
 function drawmyspr(myspr)
  spr(myspr.spr,myspr.x,myspr.y)
 end
+
+function col(a,b)
+ --lots of math
+ local a_left=a.x
+ local a_top=a.y
+ local a_right=a.x+7
+ local a_bottom=a.y+7
+ 
+ local b_left=b.x
+ local b_top=b.y
+ local b_right=b.x+7
+ local b_bottom=b.y+7
+ 
+ if a_top>b_bottom then return false end
+ if b_top>a_bottom then return false end
+ if a_left>b_right then return false end
+ if b_left>a_right then return false end
+ 
+ return true
+end
 -->8
 -- update
 
@@ -188,6 +208,21 @@ function update_game()
  ship.x+=ship.sx
  ship.y+=ship.sy
  
+ --checking if we hit the edge
+ if ship.x>120 then
+  ship.x=120
+ end
+ if ship.x<0 then
+  ship.x=0
+ end
+ 
+ if ship.y>120 then
+  ship.y=120
+ end
+ if ship.y<0 then
+  ship.y=0
+ end
+ 
  --move the bullets
  for i=#bulls,1,-1 do
   local mybul=bulls[i]
@@ -239,6 +274,14 @@ function update_game()
   end
  end
  
+ --collision ship x enemies
+ for myen in all(enemies) do
+  if col(myen,ship) then
+   lives-=1
+   sfx(4)
+  end
+ end
+ 
  --animate flame
  flamespr=flamespr+1
  if flamespr>9 then
@@ -262,20 +305,6 @@ function update_game()
  end
  if boom>19 then
   boom=17
- end
- --checking if we hit the edge
- if ship.x>120 then
-  ship.x=0
- end
- if ship.x<0 then
-  ship.x=120
- end
- 
- if ship.y>120 then
-  ship.y=120
- end
- if ship.y<0 then
-  ship.y=120
  end
  
  animatestars()
@@ -536,7 +565,7 @@ __sfx__
 000400003b6203b6203a620386203662033620316202e6201b32028620246201f6200c22019620146200c62006620006200000000000000000000000000026000000003600000000560000000026000360002600
 91100010110401506000000110401c06000000110401506000000110401c060000001806000000150600000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 91100010100401306000000100401a06000000100401306000000100401a060000001706000000130600000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-a84000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+a8020000310502d05028050270502505022050300502c0502805025050250502e0502905024050200501d0501a0501905017040150301303012030110300f0300e0300c0200b0200802000020050200401003010
 a9400010100421306200002100421a06200002100421306200002100421a062000021706200002130620000200002000020000200002000020000200002000020000200002000020000200002000020000200002
 __music__
 00 02424344
