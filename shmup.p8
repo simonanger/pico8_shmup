@@ -203,6 +203,7 @@ function update_game()
   local mytyp=myen.typ
   local strspr=nil
   local endspr=nil
+  
   if mytyp==1 then
    strspr=21
    endspr=25
@@ -454,7 +455,7 @@ function enemfunc()
  elseif typ>1 then
   enemtyp=2
   enemspr=37
-  enemspd=1.5
+  enemspd=1.3
  end
  
 	for i=1,3 do
