@@ -78,13 +78,8 @@ function startgane()
  bomba={}
  
  enemies={}
- 
- local myen={}
- myen.x=60
- myen.y=5
- myen.spr=21
- 
- add(enemies,myen)
+ enemfunc()
+
 end
 -->8
 -- tools
@@ -213,6 +208,7 @@ function update_game()
   
   if myen.y>128 then
    del(enemies,myen)
+   enemfunc()
   end
  end
  
@@ -425,6 +421,23 @@ function mltbul()
     add(bulls,newbul)
    end
  end
+end
+-->8
+-- enemies
+function enemfunc()
+	for i=1,3 do
+	  local myen={}
+	  myen.x=60
+	  myen.y=5
+	  myen.spr=21
+	  
+	  if i==2 then
+	   myen.x=30
+	  elseif i==3 then
+	   myen.x=90
+	  end
+	  add(enemies,myen)
+	 end
 end
 __gfx__
 00000000000550000005500000055000000000000000000000000000000000000000000000000000088008800880088000000000005aa5000099990000000000
