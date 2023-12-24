@@ -7,7 +7,7 @@ function _init()
  
  mode="start"
  blinkt=1
- sngshot=false
+ sngshot=true
  
  music(0)
  
@@ -69,7 +69,7 @@ function startgane()
  
  muzzle=0
  
- score=10000
+ score=00000
  
  lives=4
  bombs=4
@@ -147,6 +147,25 @@ function col(a,b)
  local b_right=b.x+7
  local b_bottom=b.y+7
  
+ if a_top>b_bottom then return false end
+ if b_top>a_bottom then return false end
+ if a_left>b_right then return false end
+ if b_left>a_right then return false end
+ 
+ return true
+end
+
+function hit(a,b)
+ local a_left=a.x
+ local a_top=a.y
+ local a_right=a.x+7
+ local a_bottom=a.y+7
+ 
+ local b_left=b.x
+ local b_top=b.y
+ local b_right=b.x+7
+ local b_bottom=b.y+7
+
  if a_top>b_bottom then return false end
  if b_top>a_bottom then return false end
  if a_left>b_right then return false end
@@ -281,6 +300,23 @@ function update_game()
   
   if lives==0 then
    mode="over"
+   return
+  end
+ end
+ 
+ --collision bullets x enemies
+ for myen in all(enemies) do
+  for bull in all(bulls) do
+	  if hit(bull,myen) then
+		  score+=1000
+		  sfx(6)
+		  del(enemies,myen)
+		  del(bulls,bull)
+		  
+		  if #enemies==0 then
+		   enemfunc()
+		  end
+	  end
   end
  end
  
@@ -569,6 +605,7 @@ __sfx__
 91100010100401306000000100401a06000000100401306000000100401a060000001706000000130600000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 a8020000310502d05028050270502505022050300502c0502805025050250502e0502905024050200501d0501a0501905017040150301303012030110300f0300e0300c0200b0200802000020050200401003010
 a9400010100421306200002100421a06200002100421306200002100421a062000021706200002130620000200002000020000200002000020000200002000020000200002000020000200002000020000200002
+000100001575016750177501875019750235501b7501c7501c7501c7501a7501875017750187501a7501c75020750247502a7502d7503075033750387503975024550225501f5501c55019550175500000000000
 __music__
 00 02424344
 00 03424344
