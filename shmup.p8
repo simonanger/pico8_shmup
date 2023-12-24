@@ -200,15 +200,31 @@ function update_game()
  
  --moving enemies
  for myen in all(enemies) do
-  myen.y+=1
+  local mytyp=myen.typ
+  local strspr=nil
+  local endspr=nil
+  if mytyp==1 then
+   strspr=21
+   endspr=25
+  elseif mytyp==2 then
+   strspr=37
+   endspr=41
+  end
+  
+  myen.y+=myen.spd
   myen.spr+=0.4
   
-  if myen.spr>=25 then
-   myen.spr=21
+  if myen.spr>=endspr then
+   myen.spr=strspr
   end
   
   if myen.y>128 then
    del(enemies,myen)
+  end
+  
+  --adding enemies back
+  if #enemies==0 then
+   enemfunc()
   end
  end
  
@@ -425,11 +441,29 @@ end
 -->8
 -- enemies
 function enemfunc() 
+ local enemtyp=nil
+ local enemspr=nil
+ local enemspd=nil
+ 
+ typ=flr(rnd(3))
+ 
+ if typ<=1 then
+  enemtyp=1
+  enemspr=21
+  enemspd=1
+ elseif typ>1 then
+  enemtyp=2
+  enemspr=37
+  enemspd=1.5
+ end
+ 
 	for i=1,3 do
 	  local myen={}
 	  myen.x=60
 	  myen.y=5
-	  myen.spr=21
+	  myen.spr=enemspr
+	  myen.typ=enemtyp
+	  myen.spd=enemspd
 	  
 	  if i==2 then
 	   myen.x=30
