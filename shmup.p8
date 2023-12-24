@@ -307,6 +307,9 @@ function update_game()
    lives-=1
    sfx(4)
    del(enemies,myen)
+   if #enemies==0 then
+		   enemfunc()
+		 end
   end
   
   if lives==0 then
