@@ -320,6 +320,22 @@ function update_game()
   end
  end
  
+ --collision bullets x enemies
+ for myen in all(enemies) do
+  for bomb in all(bomba) do
+	  if hit(bomb,myen) then
+		  score+=1000
+		  sfx(6)
+		  del(enemies,myen)
+		  del(bomba,bomb)
+		  
+		  if #enemies==0 then
+		   enemfunc()
+		  end
+	  end
+  end
+ end
+ 
  --animate flame
  flamespr=flamespr+1
  if flamespr>9 then
