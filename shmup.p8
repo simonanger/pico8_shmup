@@ -188,9 +188,6 @@ function update_game()
   boom=17
   muzzle=7
   bombs=bombs-1
-  if bombs==0 then
-   mode="over"
-  end
  end
  if btnp(5) then
  
@@ -279,6 +276,11 @@ function update_game()
   if col(myen,ship) then
    lives-=1
    sfx(4)
+   del(enemies,myen)
+  end
+  
+  if lives==0 then
+   mode="over"
   end
  end
  
