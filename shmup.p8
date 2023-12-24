@@ -209,7 +209,6 @@ function update_game()
   
   if myen.y>128 then
    del(enemies,myen)
-   enemfunc()
   end
  end
  
