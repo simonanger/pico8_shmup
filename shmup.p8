@@ -258,10 +258,21 @@ function update_game()
   if mytyp==1 then
    strspr=21
    endspr=25
+   myen.x+=1
+   if myen.x>120 then
+    myen.x=0
+   end
+   
   elseif mytyp==2 then
    strspr=37
    endspr=41
+   myen.x-=1
+   if myen.x<0 then
+    myen.x=127
+   end
   end
+  
+  
   
   myen.y+=myen.spd
   myen.spr+=0.4
