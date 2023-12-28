@@ -254,21 +254,26 @@ function update_game()
   local mytyp=myen.typ
   local strspr=nil
   local endspr=nil
-  
+  local enemdir=myen.dir
   if mytyp==1 then
    strspr=21
    endspr=25
-   myen.x+=1
-   if myen.x>120 then
-    myen.x=0
-   end
    
   elseif mytyp==2 then
    strspr=37
    endspr=41
+  end
+  if enemdir=="right" then
+   myen.x+=1
+   if myen.x>120 then
+    myen.y+=1.5
+    myen.dir="left"
+   end
+  elseif enemdir=="left" then
    myen.x-=1
-   if myen.x<0 then
-    myen.x=127
+   if myen.x==0 then
+    myen.y+=1.5
+    myen.dir="right"
    end
   end
   
@@ -542,17 +547,20 @@ function enemfunc()
  local enemtyp=nil
  local enemspr=nil
  local enemspd=nil
+ local enemdir=nil
  
  typ=flr(rnd(3))
  
  if typ<=1 then
   enemtyp=1
   enemspr=21
-  enemspd=1
+  enemspd=0.8
+  enemdir="right"
  elseif typ>1 then
   enemtyp=2
   enemspr=37
-  enemspd=1.3
+  enemspd=1
+  enemdir="left"
  end
  
 	for i=1,3 do
@@ -562,6 +570,7 @@ function enemfunc()
 	  myen.spr=enemspr
 	  myen.typ=enemtyp
 	  myen.spd=enemspd
+	  myen.dir=enemdir
 	  
 	  if i==2 then
 	   myen.x=30
