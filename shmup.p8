@@ -9,6 +9,8 @@ function _init()
  blinkt=1
  sngshot=true
  
+ t=0
+ 
  music(0)
  
  stars={}
@@ -25,6 +27,8 @@ function _init()
 end
 
 function _update()
+ t+=1
+ 
  blinkt+=1
 
  if mode=="game" then
@@ -53,6 +57,7 @@ end
 
 function startgane()
  mode="game"
+ t=0
  
  ship={}
  ship.x=60
@@ -73,6 +78,7 @@ function startgane()
  
  lives=4
  bombs=4
+ invul=0
  
  bulls={}
  bomba={}
@@ -321,16 +327,20 @@ function update_game()
  end
  
  --collision ship x enemies
- for myen in all(enemies) do
-  if col(myen,ship) then
-   lives-=1
-   sfx(4)
-   invul=30
-   del(enemies,myen)
-   if #enemies==0 then
-		   enemfunc()
-		 end
-  end
+ if invul<=0 then
+	 for myen in all(enemies) do
+	  if col(myen,ship) then
+	   lives-=1
+	   sfx(4)
+	   invul=60
+	   del(enemies,myen)
+	   if #enemies==0 then
+			   enemfunc()
+			 end
+	  end
+	 end
+	else
+	 invul-=1
  end
  
  if lives==0 then
@@ -389,8 +399,17 @@ end
 function draw_game()
  cls(0)
  starfield()
- drawmyspr(ship)
- spr(flamespr,ship.x,ship.y+5)
+ 
+ if invul<=0 then
+  drawmyspr(ship)
+  spr(flamespr,ship.x,ship.y+5)
+ else
+  --invul state
+  if sin(t/6)<0.5 then
+  	drawmyspr(ship)
+  	spr(flamespr,ship.x,ship.y+5)
+  end
+ end 
  
  --drawing enemies
  for myen in all(enemies) do
