@@ -325,16 +325,17 @@ function update_game()
   if col(myen,ship) then
    lives-=1
    sfx(4)
+   invul=30
    del(enemies,myen)
    if #enemies==0 then
 		   enemfunc()
 		 end
   end
-  
-  if lives==0 then
-   mode="over"
-   return
-  end
+ end
+ 
+ if lives==0 then
+  mode="over"
+  return
  end
  
  --animate flame
