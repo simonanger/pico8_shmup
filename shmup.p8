@@ -306,23 +306,6 @@ function update_game()
   end
  end
  
- --collision ship x enemies
- for myen in all(enemies) do
-  if col(myen,ship) then
-   lives-=1
-   sfx(4)
-   del(enemies,myen)
-   if #enemies==0 then
-		   enemfunc()
-		 end
-  end
-  
-  if lives==0 then
-   mode="over"
-   return
-  end
- end
- 
  --collision bullets x enemies
  for myen in all(enemies) do
   for bull in all(bulls) do
@@ -339,7 +322,7 @@ function update_game()
   end
  end
  
- --collision bullets x enemies
+ --collision bombs x enemies
  for myen in all(enemies) do
   for bomb in all(bomba) do
 	  if hit(bomb,myen) then
@@ -352,6 +335,23 @@ function update_game()
 		   enemfunc()
 		  end
 	  end
+  end
+ end
+ 
+ --collision ship x enemies
+ for myen in all(enemies) do
+  if col(myen,ship) then
+   lives-=1
+   sfx(4)
+   del(enemies,myen)
+   if #enemies==0 then
+		   enemfunc()
+		 end
+  end
+  
+  if lives==0 then
+   mode="over"
+   return
   end
  end
  
