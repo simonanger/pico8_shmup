@@ -155,24 +155,6 @@ function col(a,b)
  return true
 end
 
-function hit(a,b)
- local a_left=a.x
- local a_top=a.y
- local a_right=a.x+7
- local a_bottom=a.y+7
- 
- local b_left=b.x
- local b_top=b.y
- local b_right=b.x+7
- local b_bottom=b.y+7
-
- if a_top>b_bottom then return false end
- if b_top>a_bottom then return false end
- if a_left>b_right then return false end
- if b_left>a_right then return false end
- 
- return true
-end
 -->8
 -- update
 
@@ -309,8 +291,8 @@ function update_game()
  --collision bullets x enemies
  for myen in all(enemies) do
   for bull in all(bulls) do
-	  if hit(bull,myen) then
-		  score+=1000
+	  if col(myen,bull) then
+		  score+=100
 		  sfx(6)
 		  del(enemies,myen)
 		  del(bulls,bull)
@@ -325,8 +307,8 @@ function update_game()
  --collision bombs x enemies
  for myen in all(enemies) do
   for bomb in all(bomba) do
-	  if hit(bomb,myen) then
-		  score+=1000
+	  if col(myen,bomb) then
+		  score+=100
 		  sfx(6)
 		  del(enemies,myen)
 		  del(bomba,bomb)
