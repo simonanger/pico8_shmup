@@ -61,7 +61,7 @@ function startgane()
  
  ship={}
  ship.x=60
- ship.y=80
+ ship.y=110
  ship.sx=0
  ship.sy=0
  ship.spr=2
@@ -71,6 +71,8 @@ function startgane()
  bulspr=32
  
  boom=18
+ 
+ bultimer=0
  
  muzzle=0
  
@@ -196,17 +198,20 @@ function update_game()
   muzzle=7
   bombs=bombs-1
  end
- if btnp(5) then
- 
-  if sngshot==true then
-   snglbul()
-  else
-   mltbul()
+ if btn(5) then
+ 	if bultimer<=0 then
+	  if sngshot==true then
+	   snglbul()
+	  else
+	   mltbul()
+	  end
+	  
+	  sfx(0)
+	  muzzle=6
+	  bultimer=4
   end
-  
-  sfx(0)
-  muzzle=6
  end
+ bultimer-=1
  
  --moving the ship
  ship.x+=ship.sx
