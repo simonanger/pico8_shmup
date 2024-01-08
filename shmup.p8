@@ -273,8 +273,6 @@ function update_game()
    end
   end
   
-  
-  
   myen.y+=myen.spd
   myen.spr+=0.4
   
@@ -363,7 +361,7 @@ function update_game()
  end
  
  --animate flame
- flamespr=flamespr+1
+ flamespr+=1
  if flamespr>9 then
  	flamespr=5
  end
@@ -376,17 +374,17 @@ function update_game()
  
  --animate muzzle flash
  if muzzle>0 then
-  muzzle=muzzle-1
+  muzzle-=1
  end
  
  --animate enemy explosion
  if enexpl>0 then
- 	enexpl=enexpl-1
+ 	enexpl-=1
  end
  
  --changing boom
  if boom<20 then
- 	boom=boom+1
+ 	boom+=1
  end
  if boom>19 then
   boom=17
