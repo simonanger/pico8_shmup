@@ -518,13 +518,8 @@ end
 function draw_over()
  cls(0)
  starfield()
- --print("game over",45,40,3)
  print("press any key to continue",12,80,blink())
  drawbigspr(42,90,90)
- --[[spr(42,90,90)
- 				spr(43,98,90)
- 				spr(58,90,98)
- 				spr(59,98,98)]]--
  
  -- draw game
  gmespr={98,67,99,69}
