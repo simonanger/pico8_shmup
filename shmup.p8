@@ -462,7 +462,7 @@ function draw_game()
  
  --drawing enemy explosion
  if enexpl>0 then
-  circfill(dmgenx+3,dmgeny-2,
+  circfill(dmgenx+3,dmgeny+3,
   enexpl,7)
  end
  
