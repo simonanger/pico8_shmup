@@ -75,6 +75,7 @@ function startgane()
  bultimer=0
  
  muzzle=0
+ enexpl=0
  
  score=00000
  
@@ -87,6 +88,8 @@ function startgane()
  
  enemies={}
  enemfunc()
+ dmgenx=0
+ dmgeny=0
 
 end
 -->8
@@ -303,6 +306,9 @@ function update_game()
  for myen in all(enemies) do
   for bull in all(bulls) do
 	  if col(myen,bull) then
+	   dmgenx=myen.x
+	   dmgeny=myen.y
+	   enexpl=8
 		  score+=100
 		  sfx(6)
 		  del(enemies,myen)
@@ -319,6 +325,9 @@ function update_game()
  for myen in all(enemies) do
   for bomb in all(bomba) do
 	  if col(myen,bomb) then
+	   dmgenx=myen.x
+	   dmgeny=myen.y
+	   enexpl=10
 		  score+=100
 		  sfx(6)
 		  del(enemies,myen)
@@ -368,6 +377,11 @@ function update_game()
  --animate muzzle flash
  if muzzle>0 then
   muzzle=muzzle-1
+ end
+ 
+ --animate enemy explosion
+ if enexpl>0 then
+ 	enexpl=enexpl-1
  end
  
  --changing boom
@@ -440,9 +454,16 @@ function draw_game()
   end
  end
  
+ --drawing muzzle flash
  if muzzle>0 then
   circfill(ship.x+3,ship.y-2,
   muzzle,7)
+ end
+ 
+ --drawing enemy explosion
+ if enexpl>0 then
+  circfill(dmgenx+3,dmgeny-2,
+  enexpl,7)
  end
  
  print("score: "..score,40,1,12)
