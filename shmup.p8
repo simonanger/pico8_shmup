@@ -400,14 +400,14 @@ function update_game()
  
  animatestars()
  
- --add pickup object
+ --[[ add pickup object
 	if score==200 then
 	 local newpckup={}
 	  newpckup.x=60
 	  newpckup.y=20
 	  newpckup.spr=48
 	  add(pckup,newpckup)
-	end
+	end ]]--
  
 end
 
