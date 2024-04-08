@@ -1,5 +1,5 @@
 pico-8 cartridge // http://www.pico-8.com
-version 41
+version 42
 __lua__
 function _init()
  --this will clear the screen
@@ -310,13 +310,19 @@ function update_game()
  for myen in all(enemies) do
   for bull in all(bulls) do
 	  if col(myen,bull) then
-	   dmgenx=myen.x
-	   dmgeny=myen.y
-	   enexpl=8
-		  score+=100
-		  sfx(6)
-		  del(enemies,myen)
-		  del(bulls,bull)
+	   del(bulls,bull)
+	   myen.hp-=1
+	   sfx(7)
+	   myen.flash=2
+	   
+	   if myen.hp<=0 then
+	   	dmgenx=myen.x
+	   	dmgeny=myen.y
+	   	enexpl=8
+		  	score+=100
+		  	sfx(6)
+		  	del(enemies,myen)
+		  end
 		  
 		  if #enemies==0 then
 		   enemfunc()
@@ -437,7 +443,14 @@ function draw_game()
  
  --drawing enemies
  for myen in all(enemies) do
+  if myen.flash>0 then
+   myen.flash-=1
+   for i=1,15 do
+    pal(i,7)
+   end
+  end
   drawmyspr(myen)
+  pal()
  end
  
  -- display bullets
@@ -600,6 +613,8 @@ function enemfunc()
 	  myen.typ=enemtyp
 	  myen.spd=enemspd
 	  myen.dir=enemdir
+	  myen.hp=5
+	  myen.flash=0
 	  
 	  if i==2 then
 	   myen.x=30
@@ -674,6 +689,7 @@ __sfx__
 a8020000310502d05028050270502505022050300502c0502805025050250502e0502905024050200501d0501a0501905017040150301303012030110300f0300e0300c0200b0200802000020050200401003010
 a9400010100421306200002100421a06200002100421306200002100421a062000021706200002130620000200002000020000200002000020000200002000020000200002000020000200002000020000200002
 000100001575016750177501875019750235501b7501c7501c7501c7501a7501875017750187501a7501c75020750247502a7502d7503075033750387503975024550225501f5501c55019550175500000000000
+000200000a75031750026000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 __music__
 00 02424344
 00 03424344
