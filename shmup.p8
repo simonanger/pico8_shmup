@@ -329,7 +329,7 @@ function update_game()
 	   if myen.hp<=0 then
 	   	dmgenx=myen.x
 	   	dmgeny=myen.y
-	   	enexpl=8
+	   	--enexpl=8
 		  	score+=100
 		  	sfx(6)
 		  	del(enemies,myen)
@@ -349,10 +349,11 @@ function update_game()
 	  if col(myen,bomb) then
 	   dmgenx=myen.x
 	   dmgeny=myen.y
-	   enexpl=10
+	   --enexpl=10
 		  score+=100
 		  sfx(6)
 		  del(enemies,myen)
+		  explode(dmgenx,dmgeny)
 		  del(bomba,bomb)
 		  
 		  if #enemies==0 then
@@ -506,14 +507,14 @@ function draw_game()
  end
  
  --drawing enemy explosion
---[[ if enexpl>0 then
+ if enexpl>0 then
   local num = 0
   for i=6,10 do
    num=flr(rnd(i))
   end
   circfill(dmgenx+4,dmgeny+4,
   enexpl,num)
- end]]--
+ end
  
  print("score: "..score,40,1,12)
  
