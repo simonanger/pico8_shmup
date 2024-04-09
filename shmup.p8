@@ -180,7 +180,7 @@ function explode(expx,expy)
  local myex={}
  myex.x=expx
  myex.y=expy
- myex.age=10
+ myex.age=1
  add(explods,myex)
 end
 -->8
@@ -498,7 +498,7 @@ function draw_game()
   myspr=flr(myspr)
   myspr=exframes[myspr]
   
-  spr(exframes[myex.age],myex.x-4,myex.y-4,2,2)
+  spr(myspr,myex.x-4,myex.y-4,2,2)
   myex.age+=0.5
   if myex.age>#exframes then
    del(explods,myex)
