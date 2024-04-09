@@ -52,7 +52,7 @@ function _draw()
  elseif mode=="over" then
   draw_over()
  elseif mode=="level" then
-  draw_level()
+  draw_level(1)
  end
 end
 
@@ -550,11 +550,12 @@ function draw_start()
  
 end
 
-function draw_level()
+function draw_level(num)
  cls(0)
  starfield()
+ local sprs={97,113}
  -- draw level
- lvlspr={82,69,85,69,82,97}
+ lvlspr={82,69,85,69,82,sprs[num]}
  for i=1,#lvlspr do
   spr(lvlspr[i],30+i*8,40)
  end
