@@ -93,6 +93,8 @@ function startgane()
  dmgeny=0
  
  explods={}
+ 
+ parts={}
 
 end
 -->8
@@ -177,11 +179,40 @@ function drawbigspr(srtspr,x,y)
 end
 
 function explode(expx,expy)
- local myex={}
- myex.x=expx
- myex.y=expy
- myex.age=1
- add(explods,myex)
+-- local myex={}
+-- myex.x=expx
+-- myex.y=expy
+-- myex.age=1
+-- add(explods,myex)
+	local myp={}
+ myp.x=expx
+ myp.y=expy
+ 
+ myp.sx=0
+ myp.sy=0
+ 
+ myp.age=0
+ myp.size=8
+ myp.maxage=0
+ 
+ add(parts,myp)
+
+ for i=1,30 do
+	 local myp={}
+	 myp.x=expx
+	 myp.y=expy
+	 
+	 myp.sx=(rnd()-0.5)*5
+	 myp.sy=(rnd()-0.5)*5
+	 
+	 myp.age=rnd(2)
+	 myp.size=1+rnd(4)
+	 myp.maxage=10+rnd(10)
+	 
+	 add(parts,myp)
+
+	end
+	
 end
 -->8
 -- update
@@ -333,7 +364,7 @@ function update_game()
 		  	score+=100
 		  	sfx(6)
 		  	del(enemies,myen)
-		  	explode(dmgenx,dmgeny)
+		  	explode(dmgenx+4,dmgeny+4)
 		  end
 		  
 		  if #enemies==0 then
@@ -353,7 +384,7 @@ function update_game()
 		  score+=100
 		  sfx(6)
 		  del(enemies,myen)
-		  explode(dmgenx,dmgeny)
+		  explode(dmgenx+4,dmgeny+4)
 		  del(bomba,bomb)
 		  
 		  if #enemies==0 then
@@ -491,7 +522,7 @@ function draw_game()
   muzzle,7)
  end
  
- --animated explosion sprite
+ --drawinf explosion
  local exframes={128,128,130,132,134,136,136}
  for myex in all(explods) do
 
@@ -514,6 +545,45 @@ function draw_game()
   end
   circfill(dmgenx+4,dmgeny+4,
   enexpl,num)
+ end
+ 
+ --drawing particles
+ for myp in all(parts) do
+  local pc=7
+  
+  if myp.age>5 then 
+   pc=10
+  end
+  if myp.age>7 then
+   pc=9
+  end
+  if myp.age>10 then
+   pc=8
+  end
+  if myp.age>12 then
+   pc=2
+  end
+  if myp.age>15 then
+   pc=5
+  end
+  
+  circfill(myp.x, myp.y,myp.size,pc)
+  
+  myp.x+=myp.sx
+  myp.y+=myp.sy
+  
+  myp.sx=myp.sx*0.9
+  myp.sy=myp.sy*0.9
+  
+  myp.age+=1
+  
+  if myp.age>myp.maxage then
+   myp.size-=0.5
+   
+   if myp.size<0 then
+   	del(parts,myp)
+   end
+  end
  end
  
  print("score: "..score,40,1,12)
